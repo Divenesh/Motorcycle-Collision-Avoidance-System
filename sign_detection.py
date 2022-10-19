@@ -19,7 +19,7 @@ labelFile = 'labels.csv'
 batch_size_val=50  
 steps_per_epoch_val=500
 epochs_val=5
-imageDimesions = (32,32,3)
+imageDimensions = (32,32,3)
 testRatio = 0.2
 validationRatio = 0.2
  
@@ -58,9 +58,9 @@ print("Test",end = "");print(X_test.shape,y_test.shape)
 assert(X_train.shape[0]==y_train.shape[0]), "The number of images in not equal to the number of lables in training set"
 assert(X_validation.shape[0]==y_validation.shape[0]), "The number of images in not equal to the number of lables in validation set"
 assert(X_test.shape[0]==y_test.shape[0]), "The number of images in not equal to the number of lables in test set"
-assert(X_train.shape[1:]==(imageDimesions))," The dimesions of the Training images are wrong "
-assert(X_validation.shape[1:]==(imageDimesions))," The dimesionas of the Validation images are wrong "
-assert(X_test.shape[1:]==(imageDimesions))," The dimesionas of the Test images are wrong"
+assert(X_train.shape[1:]==imageDimensions)," The dimesions of the Training images are wrong "
+assert(X_validation.shape[1:]==imageDimensions)," The dimesionas of the Validation images are wrong "
+assert(X_test.shape[1:]==imageDimensions)," The dimesionas of the Test images are wrong"
  
 
 data=pd.read_csv(labelFile)
@@ -128,7 +128,7 @@ fig,axs=plt.subplots(1,15,figsize=(20,5))
 fig.tight_layout()
  
 for i in range(15):
-    axs[i].imshow(X_batch[i].reshape(imageDimesions[0],imageDimesions[1]))
+    axs[i].imshow(X_batch[i].reshape(imageDimensions[0],imageDimensions[1]))
     axs[i].axis('off')
 plt.show()
  
@@ -146,7 +146,7 @@ def myModel():
     size_of_pool=(2,2)  
     no_Of_Nodes = 500   
     model= Sequential()
-    model.add((Conv2D(no_Of_Filters,size_of_Filter,input_shape=(imageDimesions[0],imageDimesions[1],1),activation='relu')))  
+    model.add((Conv2D(no_Of_Filters,size_of_Filter,input_shape=(imageDimensions[0],imageDimensions[1],1),activation='relu')))  
     model.add((Conv2D(no_Of_Filters, size_of_Filter, activation='relu')))
     model.add(MaxPooling2D(pool_size=size_of_pool)) 
  
