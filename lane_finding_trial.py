@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from scipy.stats import itemfreq
 import matplotlib.pyplot as plt
+
 
 
 def make_coordinates(img, line_parameters):
@@ -32,13 +32,15 @@ def average_slope_intercept(img, lines):
 
 def finding_canny(img):
     gray_image = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) #grayscalling image
-    blur_application = cv2.GaussianBlur(gray_image, (5,5), 0)
-    canny = cv2.Canny(blur_application, 50 ,150)  # extract the rapid changing in the gradient color of the image
+    # blur_application = cv2.GaussianBlur(gray_image, (5,5), 0)
+    canny = cv2.Canny(gray_image, 50 ,150)  # extract the rapid changing in the gradient color of the image
     return canny
 
 def region_focus(img):
     height = img.shape[0]
-    triangle = np.array([[(200, height ), (1100,height), (550, 250)]])
+    triangle = np.array([
+        [(100, height ), (900,height), (500, 300)]
+        ])
     mask = np.zeros_like(img)
     cv2.fillPoly(mask, triangle, 255)
     image_masked = cv2.bitwise_and(img,mask)
@@ -53,34 +55,31 @@ def show_lines (img, lines):
     return image_line
 
 
-#cv2.imshow('result',image)
+image = cv2.imread('lane.jpeg')
+lane_image = np.copy(image)
+lane_canny = finding_canny(lane_image)
+cropped_canny = region_focus(lane_canny)
+lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
+averaged_lines = average_slope_intercept(image, lines)
+line_image = show_lines(lane_image, lines)
+combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+cv2.imshow('result', combo_image)
+cv2.waitKey(0)
 
-# image = cv2.imread('test_image.jpg') #read and form number array
-# image2 = np.copy(image)
 
+# plt.imshow(lane_canny)
+# plt.show()
 
+# cap = cv2.VideoCapture('test2.mp4')
 
-# image = cv2.imread('test_image.jpg')
-# lane_image = np.copy(image)
-# lane_canny = finding_canny(lane_image)
-# cropped_canny = region_focus(lane_canny)
-# lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
-# averaged_lines = average_slope_intercept(image, lines)
-# line_image = show_lines(lane_image, averaged_lines)
-# combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 0)
-# cv2.imshow('result',combo_image)
-# cv2.waitKey(0)
+# while(cap.isOpened()):
 
-cap = cv2.VideoCapture('test2.mp4')
-
-while(cap.isOpened()):
-
-    _, frame = cap.read()
-    canny = finding_canny(frame)
-    selected_region = region_focus(canny)
-    finding_lines = cv2.HoughLinesP(selected_region, 2 , np.pi/180, 100, np.array([]), minLineLength=40 , maxLineGap=50)
-    average = average_slope_intercept(frame, finding_lines)
-    line_image = show_lines(frame,average)
-    merge_image = cv2.addWeighted(frame, 0.8, line_image , 1, 1)
-    cv2.imshow('result',merge_image)
-    cv2.waitKey(1)
+#     _, frame = cap.read()
+#     canny = finding_canny(frame)
+#     selected_region = region_focus(canny)
+#     finding_lines = cv2.HoughLinesP(selected_region, 2 , np.pi/180, 100, np.array([]), minLineLength=40 , maxLineGap=50)
+#     average = average_slope_intercept(frame, finding_lines)
+#     line_image = show_lines(frame,average)
+#     merge_image = cv2.addWeighted(frame, 0.8, line_image , 1, 1)
+#     cv2.imshow('result',merge_image)
+#     cv2.waitKey(1)
