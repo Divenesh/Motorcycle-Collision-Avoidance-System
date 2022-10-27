@@ -17,8 +17,8 @@ from keras.preprocessing.image import ImageDataGenerator
 path = "Train" 
 labelFile = 'labels.csv' 
 batch_size_val=50  
-steps_per_epoch_val=500
-epochs_val=5
+steps_per_epoch_val=200
+epochs_val=30
 imageDimensions = (32,32,3)
 testRatio = 0.2
 validationRatio = 0.2
