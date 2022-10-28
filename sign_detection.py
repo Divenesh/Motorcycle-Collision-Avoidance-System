@@ -17,8 +17,8 @@ from keras.preprocessing.image import ImageDataGenerator
 path = "Train" 
 labelFile = 'labels.csv' 
 batch_size_val=50  
-steps_per_epoch_val=500
-epochs_val=5
+steps_per_epoch_val=200
+epochs_val=30
 imageDimensions = (32,32,3)
 testRatio = 0.2
 validationRatio = 0.2
@@ -99,7 +99,7 @@ def equalize(img):
     return img
 def preprocessing(img):
     img = grayscale(img) 
-    img = equalize(img)      
+    #img = equalize(img)      
     img = img/255            
     return img
  
@@ -108,7 +108,7 @@ X_validation=np.array(list(map(preprocessing,X_validation)))
 X_test=np.array(list(map(preprocessing,X_test)))
 #cv2.imshow("GrayScale Images",X_train[random.randint(0,len(X_train)-1)])
  
-
+print(X_train.shape)
 X_train=X_train.reshape(X_train.shape[0],X_train.shape[1],X_train.shape[2],1)
 X_validation=X_validation.reshape(X_validation.shape[0],X_validation.shape[1],X_validation.shape[2],1)
 X_test=X_test.reshape(X_test.shape[0],X_test.shape[1],X_test.shape[2],1)
@@ -187,5 +187,5 @@ score =model.evaluate(X_test,y_test,verbose=0)
 print('Test Score:',score[0])
 print('Test Accuracy:',score[1])
  
-save_path = './model2.h5'
+save_path = './model1.h5'
 model.save(save_path)

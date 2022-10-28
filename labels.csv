@@ -6,15 +6,6 @@ ClassId,Name
 4,Speed limit (70km/h)
 5,Speed limit (80km/h)
 6,Speed limit (120km/h)
-7,Yield
-8,No entry
-9,General caution
-10,Dangerous curve to the left
-11,Dangerous curve to the right
-12,Double curve
-13,Slippery road
-14,Road narrows on the right
-15,Road work
-16,Turn right ahead
-17,Turn left ahead
-18,Ahead only
+7,No entry
+8,General caution
+9,Slippery road
