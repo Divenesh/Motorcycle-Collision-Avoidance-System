@@ -6,7 +6,7 @@ from keras.models import load_model
 frameWidth= 640         # CAMERA RESOLUTION
 frameHeight = 480
 brightness = 180
-threshold = 0.80         # PROBABLITY THRESHOLD
+threshold = 0.90         # PROBABLITY THRESHOLD
 font = cv2.FONT_HERSHEY_SIMPLEX
 ##############################################
  
@@ -26,7 +26,7 @@ def equalize(img):
     return img
 def preprocessing(img):
     img = grayscale(img)
-    img = equalize(img)
+    #img = equalize(img)
     img = img/255
     return img
 def getCalssName(classNo):
