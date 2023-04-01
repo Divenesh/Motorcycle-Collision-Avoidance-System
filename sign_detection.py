@@ -17,7 +17,7 @@ from keras.preprocessing.image import ImageDataGenerator
 path = "Train" 
 labelFile = 'labels.csv' 
 batch_size_val=50  
-steps_per_epoch_val=200
+steps_per_epoch_val=50
 epochs_val=30
 imageDimensions = (32,32,3)
 testRatio = 0.2
@@ -187,5 +187,5 @@ score =model.evaluate(X_test,y_test,verbose=0)
 print('Test Score:',score[0])
 print('Test Accuracy:',score[1])
  
-save_path = './model1.h5'
+save_path = './model2.h5'
 model.save(save_path)
