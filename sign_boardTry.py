@@ -6,7 +6,7 @@ from keras.models import load_model
 frameWidth= 640         # CAMERA RESOLUTION
 frameHeight = 480
 brightness = 180
-threshold = 0.90         # PROBABLITY THRESHOLD
+threshold = 0.95         # PROBABLITY THRESHOLD
 font = cv2.FONT_HERSHEY_SIMPLEX
 ##############################################
  
@@ -16,7 +16,7 @@ cap.set(3, frameWidth)
 cap.set(4, frameHeight)
 cap.set(10, brightness)
 # IMPORT THE TRANNIED MODEL
-model = load_model("model2.h5")
+model = load_model("modelnew.h5")
  
 def grayscale(img):
     img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -30,25 +30,9 @@ def preprocessing(img):
     img = img/255
     return img
 def getCalssName(classNo):
-    if   classNo == 0: return 'Speed Limit 20 km/h'
-    elif classNo == 1: return 'Speed Limit 30 km/h'
-    elif classNo == 2: return 'Speed Limit 50 km/h'
-    elif classNo == 3: return 'Speed Limit 60 km/h'
-    elif classNo == 4: return 'Speed Limit 70 km/h'
-    elif classNo == 5: return 'Speed Limit 80 km/h'
-    elif classNo == 6: return 'Speed Limit 120 km/h'
-    elif classNo == 7: return 'Yield'
-    elif classNo == 8: return 'No entry'
-    elif classNo == 9: return 'General caution'
-    elif classNo == 10: return 'Dangerous curve to the left'
-    elif classNo == 11: return 'Dangerous curve to the right'
-    elif classNo == 12: return 'Double curve'
-    elif classNo == 13: return 'Slippery road'
-    elif classNo == 14: return 'Road narrows on the right'
-    elif classNo == 15: return 'Road work'
-    elif classNo == 16: return 'Turn right ahead'
-    elif classNo == 17: return 'Turn left ahead'
-    elif classNo == 18: return 'Ahead only'
+    if   classNo == 0: return 'Speed Limit 30 km/h'
+    elif classNo == 1: return 'Speed Limit 60 km/h'
+    elif classNo == 2: return 'Speed Limit 120 km/h'
 
 def region_focus(img):
     height = img.shape[0]

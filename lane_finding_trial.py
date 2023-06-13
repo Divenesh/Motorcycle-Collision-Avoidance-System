@@ -3,25 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-frameWidth= 640         # CAMERA RESOLUTION
-frameHeight = 480
-brightness = 180
+# frameWidth= 640         # CAMERA RESOLUTION
+# frameHeight = 480
+# brightness = 180
 
-cap = cv2.VideoCapture(0)
-cap.set(3, frameWidth)
-cap.set(4, frameHeight)
-cap.set(10, brightness)
+# cap = cv2.VideoCapture(0)
+# cap.set(3, frameWidth)
+# cap.set(4, frameHeight)
+# cap.set(10, brightness)
 
-
-# def preprocessing(img,img2):
-#     lane_canny = finding_canny(img)
-#     cropped_canny = region_focus(lane_canny)
-#     lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
-#     averaged_lines = average_slope_intercept(img2, lines)
-#     line_image = show_lines(img, lines)
-#     combo_image = cv2.addWeighted(img, 0.8, line_image, 1, 1)
-#     #img = img/255
-#     return img
 
 def make_coordinates(img, line_parameters):
     slope, intercept = line_parameters
@@ -58,11 +48,13 @@ def finding_canny(img):
 def region_focus(img):
     height = img.shape[0]
     triangle = np.array([
-        [(100, height ), (900,height), (500, 300)]
+        [(0, height ), (890,height), (481, 292)]
         ])
     mask = np.zeros_like(img)
     cv2.fillPoly(mask, triangle, 255)
     image_masked = cv2.bitwise_and(img,mask)
+    # cv2.imshow('result', image_masked)
+    # cv2.waitKey(0)
     return image_masked
 
 def show_lines (img, lines):
@@ -74,64 +66,39 @@ def show_lines (img, lines):
     return image_line
 
 
-# image = cv2.imread('lane.jpeg')
-# lane_image = np.copy(image)
-# lane_canny = finding_canny(lane_image)
-# cropped_canny = region_focus(lane_canny)
-# lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
-# averaged_lines = average_slope_intercept(image, lines)
-# line_image = show_lines(lane_image, lines)
-# combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
-# cv2.imshow('result', combo_image)
-# cv2.waitKey(0)
-
-
-while(True):
-    success, imgOrignal = cap.read()
- 
-# PROCESS IMAGE
-    image = np.asarray(imgOrignal)
-    lane_image = np.copy(image)
-    
-    lane_canny = finding_canny(lane_image)
-    cropped_canny = region_focus(lane_canny)
-    lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
-    # averaged_lines = average_slope_intercept(image, lines)
-    line_image = show_lines(lane_image, lines)
-    combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
-    cv2.imshow("Processed Image", combo_image)
-    if cv2.waitKey(1) and 0xFF == ord('q'):
-       break
-
-
-
-
-# cap = cv2.VideoCapture(0)
-# cap.set(3, frameWidth)
-# cap.set(4, frameHeight)
-# cap.set(10, brightness)
-
-# i=0
-# while (cap.isOpened()):
-#     if i%5==0:
-#                         frame = cap.read()   
-
-#                         lane_canny = finding_canny(frame)
-#                         cropped_canny = region_focus(lane_canny)
-#                         lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
-#                         averaged_lines = average_slope_intercept(frame, lines)
-#                         line_image = show_lines(frame, lines)
-#                         combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
-#                         cv2.imshow("result", combo_image)
-#                         if cv2.waitKey(10)& 0xFF == ord('q'):
-#                             break;
-# cap.release()
-# cv2.destroyAllWindows()
-
+image = cv2.imread('lane.jpeg')
+lane_image = np.copy(image)
+lane_canny = finding_canny(lane_image)
+cropped_canny = region_focus(lane_canny)
+lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
+averaged_lines = average_slope_intercept(image, lines)
+line_image = show_lines(lane_image, lines)
+combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+cv2.imshow('result', combo_image)
+cv2.waitKey(0)
 # plt.imshow(lane_canny)
 # plt.show()
 
-# cap = cv2.VideoCapture('test2.mp4')
+# while(True):
+#     success, imgOrignal = cap.read()
+ 
+# # PROCESS IMAGE
+#     image = np.asarray(imgOrignal)
+#     lane_image = np.copy(image)
+    
+#     lane_canny = finding_canny(lane_image)
+#     cropped_canny = region_focus(lane_canny)
+#     lines = cv2.HoughLinesP(cropped_canny, 2, np.pi/180, 100, np.array([]), minLineLength=40,maxLineGap=5)
+#     # averaged_lines = average_slope_intercept(image, lines)
+#     line_image = show_lines(lane_image, lines)
+#     combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+#     cv2.imshow("Processed Image", combo_image)
+#     if cv2.waitKey(1) and 0xFF == ord('q'):
+#        break
+
+
+
+# cap = cv2.VideoCapture('lane.mp4')
 
 # while(cap.isOpened()):
 
