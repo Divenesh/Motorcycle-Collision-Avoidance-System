@@ -4,7 +4,7 @@ import time
 import geocoder
 import os
 
-filename = "/home/divenesh/Desktop/Motorcycle-Collision-Avoidance-System/Lane_Finding_Test.mp4"
+filename = "/mnt/My Works/Motorcycle-Collision-Avoidance-System/Lane_Finding_Test.mp4"
 
 def detectPotholeonVideo(filename):
     # reading label name from obj.names file
